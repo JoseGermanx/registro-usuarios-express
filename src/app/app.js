@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use("/api/v1", router );
+app.use('*', (req, res) => res.send("404 - Ruta no encontrada"))
 
 module.exports = app;
 
