@@ -1,4 +1,4 @@
-const { crearUser } = require('../controllers/user.controller');
+const { crearUser, loginUser } = require('../controllers/user.controller');
 
 
 const router = require('express').Router();
@@ -7,7 +7,7 @@ const router = require('express').Router();
 router.post('/crear', crearUser);
 
 // hacer login
-router.post('/login', (req, res) => res.send("Rutas para loguear un usuario") )
+router.post('/login', loginUser)
 
 // obtener un usuario por su id
 
