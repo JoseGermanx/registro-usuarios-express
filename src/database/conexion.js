@@ -1,8 +1,9 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
 const dbConnection = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/registrousuarios");
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Base de datos conectada");
   } catch (error) {
     console.log(error);
