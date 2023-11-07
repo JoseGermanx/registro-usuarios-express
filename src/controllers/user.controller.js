@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const { generarJWT } = require("../services/generar-jwt");
 
 // gestionar la creacion de un usuario
 
@@ -77,6 +78,8 @@ const loginUser = async (req, res) => {
             });
         }
 
+        const token = await generarJWT(findUser._id);
+
         res.status(200).json({
             msg: `Usuario con email ${email} logueado correctamente`,
             status: 200,
@@ -84,7 +87,8 @@ const loginUser = async (req, res) => {
                 name: findUser.name,
                 lastName: findUser.lastName,
                 email: findUser.email
-            }
+            },
+            token: token
         })
         
     } catch (error) {
