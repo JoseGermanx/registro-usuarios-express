@@ -185,6 +185,11 @@ const updateUserById = async (req, res) => {
   }
 };
 
+// crear controlador y ruta para actualizar el email de un usuario
+// recibir por params el id del usuario
+// recibir por body el nuevo email
+// utilizar el metodode mongoose findByIdAndUpdate o findOneAndUpdate o updateOne
+
 module.exports = {
   crearUser,
   loginUser,
