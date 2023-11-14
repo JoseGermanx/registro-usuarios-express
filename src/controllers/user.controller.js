@@ -75,7 +75,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const token = await generarJWT(findUser._id);
+    const token = await generarJWT(findUser._id, findUser.name, findUser.lastName, findUser.email);
 
     res.status(200).json({
       msg: `Usuario con email ${email} logueado correctamente`,
