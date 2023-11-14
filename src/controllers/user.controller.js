@@ -141,7 +141,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-const updateUserById = async (req, res) => {
+const updateStatusUserById = async (req, res) => {
   const { iduser } = req.params;
 
   if (!iduser) {
@@ -185,14 +185,46 @@ const updateUserById = async (req, res) => {
   }
 };
 
-// crear controlador y ruta para actualizar el email de un usuario
+// crear controlador y ruta para actualizar datos del un usuario
 // recibir por params el id del usuario
-// recibir por body el nuevo email
+// recibir por body los nuevos datos
 // utilizar el metodode mongoose findByIdAndUpdate o findOneAndUpdate o updateOne
+
+const updateUserById = async (req, res) => {
+   const { iduser } = req.params;
+   const { name, lastName, email } = req.body;
+
+  if (!iduser) {
+    return res.status(404).json({
+      msg: "Id de usuario es requerido",
+      status: 404,
+    });
+  }
+
+  if (iduser.length !== 24) {
+    return res.status(404).json({
+      msg: "Id de usuario no válido",
+      status: 404,
+    });
+  }
+
+  const userChanges = {
+    name: name,
+    lastName: lastName,
+    email: email
+  }
+
+  await User.findByIdAndUpdate(iduser, userChanges);
+  res.status(200).json({
+    msg: "Usuario actualizado correctamente",
+    status: 200
+  })
+}
 
 module.exports = {
   crearUser,
   loginUser,
   getUserById,
-  updateUserById,
+  updateStatusUserById,
+  updateUserById
 };
