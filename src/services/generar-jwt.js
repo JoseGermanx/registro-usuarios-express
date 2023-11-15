@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const generarJWT = (idUser = "", name = "", lastName ="", email="") => {
   return new Promise((resolve, reject) => {
-    const payload = { idUser, name, lastName, email };
+    const payload = { idUser, name, lastName, email }; // se incluye dentro del token
 
     jwt.sign(
       payload,
