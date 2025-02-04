@@ -1,4 +1,5 @@
 const { crearUser, loginUser, getUserById, updateUserById, updateStatusUserById } = require('../controllers/user.controller');
+const { validarJWT } = require('../middlewares/auth');
 
 
 const router = require('express').Router();
@@ -21,6 +22,13 @@ router.put('/update/:iduser', updateUserById)
 
 // obtener listado de todos los usuarios
 
+// ruta protegida
+
+router.get('/user-data', validarJWT, (req, res) => {
+  res.json({
+    msg: 'Ruta protegida, Welcome!'
+  })
+})
 
 
 

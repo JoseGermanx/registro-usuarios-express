@@ -77,16 +77,16 @@ const loginUser = async (req, res) => {
 
     const token = await generarJWT(findUser._id, findUser.name, findUser.lastName, findUser.email);
 
-    res.status(200).json({
+    res.status(200).cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Solo en HTTPS en producción
+      sameSite: "strict",
+      maxAge: 3600000, // 1 hora
+    })
+    .json({
       msg: `Usuario con email ${email} logueado correctamente`,
       status: 200,
-      data: {
-        name: findUser.name,
-        lastName: findUser.lastName,
-        email: findUser.email,
-      },
-      token: token,
-    });
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({
