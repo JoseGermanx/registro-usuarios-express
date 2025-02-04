@@ -20,7 +20,6 @@ const userSchema = new Schema({
         type: String,
         enum: ['admin', 'user'],
         require: true,
-        default: 'user'
     }
 })
 

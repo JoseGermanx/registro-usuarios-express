@@ -5,7 +5,7 @@ const { generarJWT } = require("../services/generar-jwt");
 // gestionar la creacion de un usuario
 
 const crearUser = async (req, res) => {
-  const { name, lastName, email, password } = req.body;
+  const { name, lastName, email, password, rol } = req.body;
 
   if (!name || !lastName || !email || !password) {
     return res.status(404).json({
@@ -21,6 +21,7 @@ const crearUser = async (req, res) => {
       lastName: lastName,
       email: email,
       password: bcrypt.hashSync(password, salt),
+      rol: rol
     });
 
     res.status(201).json({
@@ -230,11 +231,29 @@ const logout = (req, res) => {
   res.json({ message: "Sesión cerrada" });
 }
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      msg: "Listado de usuarios",
+      data: users,
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error al buscar los usuarios",
+      status: 500,
+    });
+  }
+}
+
 module.exports = {
   crearUser,
   loginUser,
   getUserById,
   updateStatusUserById,
   updateUserById,
-  logout
+  logout,
+  getAllUsers
 };

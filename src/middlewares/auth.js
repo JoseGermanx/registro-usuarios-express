@@ -1,8 +1,9 @@
 // middleware para validar JWT
 
 const jwt = require("jsonwebtoken");
+const User = require("../models/user.model");
 
-const validarJWT = (req, res, next) => {
+const validarJWT = async (req, res, next) => {
     const token = req.cookies.token; // Obtener token desde la cookie
     
     if (!token) {
@@ -17,11 +18,15 @@ const validarJWT = (req, res, next) => {
         token,
         process.env.SECRETORPRIVATEKEY
         );
-    
+
+        const userAdmin = await User.findById(idUser);
+   
+       
         req.idUser = idUser;
         req.name = name;
         req.lastName = lastName;
         req.email = email;
+        req.rol = userAdmin.rol;
     
         next();
     } catch (error) {
