@@ -7,7 +7,10 @@ const router = require('../routes/user.routes')
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "*", // Cambia según la URL de tu frontend
+    credentials: true, // Permitir envío de cookies
+  }));
 
 app.use(morgan('dev'));
 app.use(express.json());
