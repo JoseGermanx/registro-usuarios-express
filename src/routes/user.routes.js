@@ -23,11 +23,11 @@ router.put('/update/:iduser', updateUserById)
 
 // obtener listado de todos los usuarios
 
-router.get('/users', getAllUsers)
+router.get('/users', validarJWT, isAdmin, getAllUsers)
 
 // ruta protegida
 
-router.get('/user-data', validarJWT, isAdmin, (req, res) => {
+router.get('/user-data', validarJWT, (req, res) => {
   res.json({
     msg: 'Ruta protegida, Welcome!',
     user: req.name
