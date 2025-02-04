@@ -26,9 +26,21 @@ router.put('/update/:iduser', updateUserById)
 
 router.get('/user-data', validarJWT, (req, res) => {
   res.json({
-    msg: 'Ruta protegida, Welcome!'
+    msg: 'Ruta protegida, Welcome!',
+    user: req.name
   })
 })
+
+router.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    res.json({ message: "Sesión cerrada" });
+  });
+  
+
 
 
 
