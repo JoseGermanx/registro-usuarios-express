@@ -1,4 +1,4 @@
-const { crearUser, loginUser, getUserById, updateUserById, updateStatusUserById } = require('../controllers/user.controller');
+const { crearUser, loginUser, getUserById, updateUserById, updateStatusUserById, logout } = require('../controllers/user.controller');
 const { validarJWT } = require('../middlewares/auth');
 
 
@@ -31,14 +31,7 @@ router.get('/user-data', validarJWT, (req, res) => {
   })
 })
 
-router.post("/logout", (req, res) => {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
-    res.json({ message: "Sesión cerrada" });
-  });
+router.post("/logout", logout);
   
 
 
